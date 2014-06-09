@@ -1,0 +1,43 @@
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript">
+    $("document").ready(function () {
+        $("#ddlBrands").change(function () {
+            brandDDLValue = $("#ddlBrands").val();  // val() - retrieve value
+            var url = $(this).data('url');
+            var value = $(this).val();
+            $('#divModel').load(url, { id: value });
+            $.post('@Url.Action("LoadModels", "Home")', { fstValue: brandDDLValue },
+                function (result) {
+                    var select = $("#ddlModels");
+                    select.empty();
+                    select.append($('<option />', {
+                        value: 0,
+                        text: "-- выберите Модель --"
+                    }));
+                    $.each(result, function (index, Data) {
+                        select.append($('<option />', {
+                            value: Data.Value,
+                            text: Data.Text
+                        }));
+                    });
+                });
+        });
+    });
+</script>
+
+
+<div id="showBrands">
+
+    <p class="lead">Производитель</p>
+
+    @Html.DropDownList("brands", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "BrandName"),
+              "--выберите Производителя--",
+              new
+              {
+                  id = "ddlBrands",
+                  data_url = Url.Action("ChooseModel", "Home")
+              })
+
+    <div id="divModel"></div>
+</div>

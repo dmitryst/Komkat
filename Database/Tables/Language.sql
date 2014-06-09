@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Language]
+(
+	[Id] INT  PRIMARY KEY IDENTITY (1, 1) NOT NULL,
+    [Title] NVARCHAR (50) NOT NULL,
+)

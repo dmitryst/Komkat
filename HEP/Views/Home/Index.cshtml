@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+<script src="~/Scripts/languages.js"></script>
+
+
+<script type="text/javascript">
+    $("document").ready(function () {
+        $("#ddlBrands").change(function () {
+
+            firstDDLValue = $("#ddlBrands").val();
+
+            var url = $(this).data('url');
+            var value = $(this).val();
+            $('#divModel').load(url, { id: value });
+
+            $.post('@Url.Action("LoadModels", "Home")', { fstValue: firstDDLValue },
+                function (result) {
+
+                    var select = $("#ddlModels");
+                    select.empty();
+                    select.append($('<option/>', {
+                        value: '',
+                        text: "-- select a Model --"
+                    }));
+                    $.each(result, function (index, Data) {
+                        select.append($('<option/>', {
+                            value: Data.Value,
+                            text: Data.Text
+                        }));
+                    });
+                });
+        });
+    });
+</script>
+
+
+
+
+<div class="hero-unit">
+    <h1>LADALU&#769</h1>
+    <p class="lead">Put in the catalogue number of needed part into the field below</p>
+
+    @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+    {
+
+        <p>@Html.TextBox("search")<input type="submit" value="Find" class="btn btn-primary btn-large" /> </p>
+    }
+
+
+    <p class="lead">Brand</p>
+
+    @Html.DropDownList("brands", new SelectList(
+      @ViewBag.Brands, "Id", "BrandName"),
+      "--select a Brand--",
+      new
+      {
+          id = "ddlBrands",
+          data_url = Url.Action("ChooseModel", "Home")
+      })
+
+
+    <div id="divModel"></div>
+
+
+</div>
+<div class="row">
+    <div class="span4">
+        <h2>Product Catalogue</h2>
+        <p>Please kindly review our product catalogue</p>
+        <p><img src="~/Content/images/komatsu.png"></p>
+        <p><img src="~/Content/images/CAT.jpg"></p>
+        <p><a class="btn" href="@Url.Action("Index", "Product")">See more brands&raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>

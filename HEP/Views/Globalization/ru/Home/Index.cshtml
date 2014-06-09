@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Komatsu, Caterpillar";
+}
+
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript">
+    $("document").ready(function () {
+        $("#ddlTypes").change(function () {
+            typeDDLValue = $("#ddlTypes").val();
+            var url1 = $(this).data('url');
+            var value1 = $(this).val();
+            $('#divBrands').load(url1, { id: value1 });
+            $.post('@Url.Action("LoadBrands", "Home")', { firstValue: typeDDLValue},
+            function (result) {
+                var select = $("#ddlBrands");
+                select.empty();
+                select.append($('<option/>', {
+                    value: 0,
+                    text: "-- выберите Производителя --"
+                }));
+                $.each(result, function (index, Data) {
+                    select.append($('<option/>', {
+                        value: Data.Value,
+                        text: Data.Text
+                    }));
+                });
+            });
+            $("#ddlBrands").change(function () {
+                brandDDLValue = $("#ddlBrands").val();  // val() - retrieve value                
+                var url = $(this).data('url');
+                var value = $(this).val();
+                $('#divModel').load(url, { id: value });
+                $.post('@Url.Action("LoadModels", "Home")', { fstValue: brandDDLValue },
+                    function (result) {
+                        var select = $("#ddlModels");
+                        select.empty();
+                        select.append($('<option/>', {
+                            value: 0,
+                            text: "-- выберите Модель --"
+                        }));
+                        $.each(result, function (index, Data) {
+                            select.append($('<option/>', {
+                                value: Data.Value,
+                                text: Data.Text
+                            }));
+                        });
+                    });
+            });
+        });
+    });
+</script>
+
+
+
+
+<div class="hero-unit" >
+    <div class="row-fluid">
+        <div class="span6">
+            <p class="lead">Введите каталожный номер запчасти для поиска</p>
+
+            @using (Html.BeginForm("SearchByNumber", "Home", FormMethod.Get))
+            {
+                <p>@Html.TextBox("search")<input type="submit" value="Поиск" class="btn btn-primary btn-large" /> </p>
+            }
+
+        </div>
+
+        <div class="span6">
+            <p class="lead">Тип машины</p>
+            @Html.DropDownList("types", new SelectList(@ViewBag.Types, "MachineTypes", "Text"),
+            "--выберите Тип машины --",
+            new
+            {
+                id = "ddlTypes",
+                data_url = Url.Action("ShowBrand", "Home")
+            })
+
+
+            <div id="divBrands"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="span4">
+        <h2>Каталог</h2>
+        <p>С каталогом продукции можно ознакомится в этом разделе</p>
+        <p><img src="~/Content/images/komatsu.png"></p>
+        <p><img src="~/Content/images/CAT.jpg"></p>
+        <p><a class="btn" href="@Url.Action("Index", "Product")">See more brands&raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>Здесь что-то будет</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>Здесь что-то будет</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>

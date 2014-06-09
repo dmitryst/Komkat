@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea63c1413d9e418c971b9a6e3d66b0f6" Name="Diagram1" DisplayType="true">
+        <EntityTypeShape EntityType="HEPDatabaseModel.Brand" Width="1.75" PointX="5.5" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.Category" Width="1.5" PointX="2.875" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.Country" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.Currency" Width="1.5" PointX="9.875" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.DescriptionText" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.Item" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.ItemPriceReg" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.Language" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.MachineType" Width="2.375" PointX="7.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HEPDatabaseModel.Model" Width="2" PointX="3" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_Model_ToBrand" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_Category_ToLanguage" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_Item_ToCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_Country_ToLanguage" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_Item_ToCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_ItemPriceReg_ToCurrency" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_DescriptionText_ToLanguage" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_Item_ToDescription" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_Item_ToModel" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_ItemPriceReg_ToItem" ManuallyRouted="false" />
+        <AssociationConnector Association="HEPDatabaseModel.FK_TypeName_ToLanguage" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

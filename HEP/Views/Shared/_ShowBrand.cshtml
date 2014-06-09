@@ -1,0 +1,8 @@
+<div id="showBrands">
+
+    <div class="lead">Model</div>
+
+    @Html.DropDownList("models", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "ModelName"),
+        "--select a Model--",
+        new { id = "ddlModels" })
+</div>

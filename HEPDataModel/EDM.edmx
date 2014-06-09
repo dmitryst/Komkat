@@ -1,0 +1,835 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HEPDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LangId" Type="int" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LangId" Type="int" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="CurrencyDesignation" Type="nchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DescriptionText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LangId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModelId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="DescriptionId" Type="int" Nullable="false" />
+          <Property Name="CatalogNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ItemPriceReg">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Period" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CurrencyId" Type="smallint" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MachineType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MachineTypes" Type="smallint" Nullable="false" />
+          <Property Name="LangId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Model">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="MachineTypeId" Type="smallint" Nullable="false" />
+          <Property Name="ModelName" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Category_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Country_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="Country" Type="Self.Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Country">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DescriptionText_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="DescriptionText" Type="Self.DescriptionText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DescriptionText">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToCategory">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToCountry">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToDescription">
+          <End Role="DescriptionText" Type="Self.DescriptionText" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DescriptionText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="DescriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToModel">
+          <End Role="Model" Type="Self.Model" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Model">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="ModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemPriceReg_ToCurrency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="ItemPriceReg" Type="Self.ItemPriceReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemPriceReg">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemPriceReg_ToItem">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemPriceReg" Type="Self.ItemPriceReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemPriceReg">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Model_ToBrand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Model" Type="Self.Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Model">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TypeName_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="MachineType" Type="Self.MachineType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MachineType">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetItemListProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LangId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetItemResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LangId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Id" Type="int" Nullable="false" />
+                <Property Name="BrandId" Type="int" Nullable="false" />
+                <Property Name="BrandName" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="MachineTypeId" Type="smallint" Nullable="false" />
+                <Property Name="TypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+                <Property Name="ModelId" Type="int" Nullable="false" />
+                <Property Name="ModelName" Type="nvarchar" MaxLength="15" Nullable="false" />
+                <Property Name="CategoryId" Type="int" Nullable="false" />
+                <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+                <Property Name="CatalogNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
+                <Property Name="CountryId" Type="int" Nullable="false" />
+                <Property Name="CountryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+                <Property Name="Text" Type="nvarchar" MaxLength="100" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetModelListProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LangId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="HEPDatabaseModelStoreContainer">
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DescriptionText" EntityType="Self.DescriptionText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemPriceReg" EntityType="Self.ItemPriceReg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MachineType" EntityType="Self.MachineType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Category_ToLanguage" Association="Self.FK_Category_ToLanguage">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Country_ToLanguage" Association="Self.FK_Country_ToLanguage">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="Country" EntitySet="Country" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DescriptionText_ToLanguage" Association="Self.FK_DescriptionText_ToLanguage">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="DescriptionText" EntitySet="DescriptionText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToCategory" Association="Self.FK_Item_ToCategory">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToCountry" Association="Self.FK_Item_ToCountry">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToDescription" Association="Self.FK_Item_ToDescription">
+            <End Role="DescriptionText" EntitySet="DescriptionText" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToModel" Association="Self.FK_Item_ToModel">
+            <End Role="Model" EntitySet="Model" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemPriceReg_ToCurrency" Association="Self.FK_ItemPriceReg_ToCurrency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="ItemPriceReg" EntitySet="ItemPriceReg" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemPriceReg_ToItem" Association="Self.FK_ItemPriceReg_ToItem">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="ItemPriceReg" EntitySet="ItemPriceReg" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Model_ToBrand" Association="Self.FK_Model_ToBrand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Model" EntitySet="Model" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TypeName_ToLanguage" Association="Self.FK_TypeName_ToLanguage">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="MachineType" EntitySet="MachineType" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HEPDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="GetItemResult_Result">
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MachineTypeId" Type="Int16" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModelId" Type="Int32" Nullable="false" />
+          <Property Name="ModelName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CatalogNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Models" Relationship="Self.FK_Model_ToBrand" FromRole="Brand" ToRole="Model" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LangId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_Category_ToLanguage" FromRole="Category" ToRole="Language" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_ToCategory" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LangId" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_Country_ToLanguage" FromRole="Country" ToRole="Language" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_ToCountry" FromRole="Country" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="CurrencyDesignation" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ItemPriceRegs" Relationship="Self.FK_ItemPriceReg_ToCurrency" FromRole="Currency" ToRole="ItemPriceReg" />
+        </EntityType>
+        <EntityType Name="DescriptionText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LangId" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_DescriptionText_ToLanguage" FromRole="DescriptionText" ToRole="Language" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_ToDescription" FromRole="DescriptionText" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModelId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="DescriptionId" Type="Int32" Nullable="false" />
+          <Property Name="CatalogNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Item_ToCategory" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Item_ToCountry" FromRole="Item" ToRole="Country" />
+          <NavigationProperty Name="DescriptionText" Relationship="Self.FK_Item_ToDescription" FromRole="Item" ToRole="DescriptionText" />
+          <NavigationProperty Name="Model" Relationship="Self.FK_Item_ToModel" FromRole="Item" ToRole="Model" />
+          <NavigationProperty Name="ItemPriceRegs" Relationship="Self.FK_ItemPriceReg_ToItem" FromRole="Item" ToRole="ItemPriceReg" />
+        </EntityType>
+        <EntityType Name="ItemPriceReg">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Period" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CurrencyId" Type="Int16" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Precision="16" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Currency" Relationship="Self.FK_ItemPriceReg_ToCurrency" FromRole="ItemPriceReg" ToRole="Currency" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_ItemPriceReg_ToItem" FromRole="ItemPriceReg" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Category_ToLanguage" FromRole="Language" ToRole="Category" />
+          <NavigationProperty Name="Countries" Relationship="Self.FK_Country_ToLanguage" FromRole="Language" ToRole="Country" />
+          <NavigationProperty Name="DescriptionTexts" Relationship="Self.FK_DescriptionText_ToLanguage" FromRole="Language" ToRole="DescriptionText" />
+          <NavigationProperty Name="MachineTypes" Relationship="Self.FK_TypeName_ToLanguage" FromRole="Language" ToRole="MachineType" />
+        </EntityType>
+        <EntityType Name="MachineType">
+          <Key>
+            <PropertyRef Name="Id1" />
+          </Key>
+          <Property Type="Int32" Name="Id1" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Type="HEPDatabaseModel.MachineTypeEnum" Name="MachineTypes" Nullable="false" />
+          <Property Name="LangId" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_TypeName_ToLanguage" FromRole="MachineType" ToRole="Language" />
+        </EntityType>
+        <EntityType Name="Model">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MachineTypeId" Type="HEPDatabaseModel.MachineTypeEnum" Nullable="false" />
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="ModelName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Brand" Relationship="Self.FK_Model_ToBrand" FromRole="Model" ToRole="Brand" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_ToModel" FromRole="Model" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Model_ToBrand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Model" Type="Self.Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Model">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToCategory">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Country_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="Country" Type="Self.Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Country">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToCountry">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemPriceReg_ToCurrency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="ItemPriceReg" Type="Self.ItemPriceReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemPriceReg">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DescriptionText_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="DescriptionText" Type="Self.DescriptionText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DescriptionText">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToDescription">
+          <End Role="DescriptionText" Type="Self.DescriptionText" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DescriptionText">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="DescriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_ToModel">
+          <End Role="Model" Type="Self.Model" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Model">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="ModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemPriceReg_ToItem">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemPriceReg" Type="Self.ItemPriceReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemPriceReg">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TypeName_ToLanguage">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="MachineType" Type="Self.MachineType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MachineType">
+              <PropertyRef Name="LangId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HEPedmDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brands" EntityType="Self.Brand" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Currencies" EntityType="Self.Currency" />
+          <EntitySet Name="DescriptionTexts" EntityType="Self.DescriptionText" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="ItemPriceRegs" EntityType="Self.ItemPriceReg" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="MachineTypes" EntityType="Self.MachineType" />
+          <EntitySet Name="Models" EntityType="Self.Model" />
+          <AssociationSet Name="FK_Model_ToBrand" Association="Self.FK_Model_ToBrand">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Model" EntitySet="Models" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_ToLanguage" Association="Self.FK_Category_ToLanguage">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToCategory" Association="Self.FK_Item_ToCategory">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Country_ToLanguage" Association="Self.FK_Country_ToLanguage">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="Country" EntitySet="Countries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToCountry" Association="Self.FK_Item_ToCountry">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemPriceReg_ToCurrency" Association="Self.FK_ItemPriceReg_ToCurrency">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="ItemPriceReg" EntitySet="ItemPriceRegs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DescriptionText_ToLanguage" Association="Self.FK_DescriptionText_ToLanguage">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="DescriptionText" EntitySet="DescriptionTexts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToDescription" Association="Self.FK_Item_ToDescription">
+            <End Role="DescriptionText" EntitySet="DescriptionTexts" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ToModel" Association="Self.FK_Item_ToModel">
+            <End Role="Model" EntitySet="Models" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemPriceReg_ToItem" Association="Self.FK_ItemPriceReg_ToItem">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="ItemPriceReg" EntitySet="ItemPriceRegs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TypeName_ToLanguage" Association="Self.FK_TypeName_ToLanguage">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="MachineType" EntitySet="MachineTypes" />
+          </AssociationSet>
+          <FunctionImport Name="GetItemResult" ReturnType="Collection(HEPDatabaseModel.GetItemResult_Result)" IsComposable="true">
+          <Parameter Name="LangId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetItemListProcedure" ReturnType="Collection(HEPDatabaseModel.GetItemResult_Result)">
+          <Parameter Name="LangId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetModelListProcedure" ReturnType="Collection(HEPDatabaseModel.ModelListProcedureResult)">
+            <Parameter Name="LangId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetItemListProcedure_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Id1" Nullable="true" />
+          <Property Type="String" Name="BrandName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Id2" Nullable="true" />
+          <Property Type="String" Name="Text" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="ModelId" Nullable="false" />
+          <Property Type="String" Name="ModelName" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CatalogNumber" Nullable="false" MaxLength="15" />
+          <Property Type="Int32" Name="CountryId" Nullable="false" />
+          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Text1" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EnumType Name="MachineTypeEnum" UnderlyingType="Byte">
+          <Member Name="Excavator" Value="1" />
+          <Member Name="Bulldozer" Value="2" />
+        </EnumType>
+        <ComplexType Name="GetModelListProcedure_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="ModelName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="BrandName" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="MachineTypeId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ModelListProcedureResult">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="ModelName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="BrandName" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="MachineTypeId" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HEPDatabaseModelStoreContainer" CdmEntityContainer="HEPedmDatabaseEntities">
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LangId" ColumnName="LangId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LangId" ColumnName="LangId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CurrencyDesignation" ColumnName="CurrencyDesignation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DescriptionTexts">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.DescriptionText">
+              <MappingFragment StoreEntitySet="DescriptionText">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LangId" ColumnName="LangId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="DescriptionId" ColumnName="DescriptionId" />
+                <ScalarProperty Name="CatalogNumber" ColumnName="CatalogNumber" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemPriceRegs">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.ItemPriceReg">
+              <MappingFragment StoreEntitySet="ItemPriceReg">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MachineTypes">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.MachineType">
+              <MappingFragment StoreEntitySet="MachineType">
+                <ScalarProperty Name="Id1" ColumnName="Id" />
+                <ScalarProperty Name="MachineTypes" ColumnName="MachineTypes" />
+                <ScalarProperty Name="LangId" ColumnName="LangId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Models">
+            <EntityTypeMapping TypeName="HEPDatabaseModel.Model">
+              <MappingFragment StoreEntitySet="Model">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="HEPDatabaseModel.Store.GetItemResult" FunctionImportName="GetItemResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HEPDatabaseModel.GetItemResult_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CatalogNumber" ColumnName="CatalogNumber" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetItemListProcedure" FunctionName="HEPDatabaseModel.Store.GetItemListProcedure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HEPDatabaseModel.GetItemResult_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CatalogNumber" ColumnName="CatalogNumber" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetModelListProcedure" FunctionName="HEPDatabaseModel.Store.GetModelListProcedure">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="HEPDatabaseModel.ModelListProcedureResult">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,23 @@
+CREATE PROCEDURE [dbo].[GetItemListProcedure]
+(
+	@LangId INT
+)
+AS
+
+
+
+	SELECT Item.Id, Brand.Id, Brand.BrandName, MachineType.TypeName,
+			Item.ModelId, Model.ModelName, Item.CategoryId, Category.CategoryName, Item.CatalogNumber,
+			Item.CountryId, Country.CountryName, DescriptionText.Text
+
+	FROM Item 
+ LEFT OUTER JOIN
+			Brand ON Model.BrandId = Brand.Id LEFT OUTER JOIN
+			MachineType ON Model.MachineTypeId = MachineType.Id AND MachineType.LangId = @LangId LEFT OUTER JOIN
+			Model ON Item.ModelId = Model.Id LEFT OUTER JOIN
+			Category ON Item.CategoryId = Category.Id AND Category.LangId = @LangId LEFT OUTER JOIN
+			Country ON Item.CountryId = Country.Id AND Country.LangId = @LangId LEFT OUTER JOIN
+			DescriptionText ON Item.DescriptionId = DescriptionText.Id AND DescriptionText.LangId = @LangId
+			WHERE Item.ModelId = Model.Id
+		
+RETURN

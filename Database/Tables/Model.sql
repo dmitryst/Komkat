@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Model]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[BrandId] INT NOT NULL,
+	[MachineTypeId] SMALLINT NOT NULL,
+	[ModelName] NVARCHAR(15) NOT NULL
+
+	CONSTRAINT [FK_Model_ToBrand] FOREIGN KEY ([BrandId]) REFERENCES [Brand]([Id]),
+	
+	
+)

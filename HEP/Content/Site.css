@@ -1,0 +1,64 @@
+﻿body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+/*.details {
+    display: block;
+    height: 4em;
+    line-height: 4em;
+    margin: -2em;
+    position: absolute;
+    -webkit-transition: -webkit-transform .5s;
+    -moz-transition: -moz-transform .5s;
+    -ms-transition: -ms-transform .5s;
+    -o-transition: -o-transform .5s;
+    transition: transform .5s;
+    -webkit-transform: -webkit-transform .5s;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    text-align: center;
+    width: 4em;
+}*/
+
+.sidebar{
+    width: 15em;
+    margin: 1em;
+    padding: 1em;
+    float: left;
+}
+
+
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+ }
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* styles for removing the background from form */
+.no-color {
+  background-color: white;
+  border-style:none;
+}
