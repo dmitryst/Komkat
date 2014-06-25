@@ -28,4 +28,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="BrandName" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1fc2b474-9700-4d21-9646-80631d22dc7c" ChangeDateTime="06/10/2014 11:43:04">
+    <Property Name="ElementName" Value="[dbo].[OEM].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[OEM]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ItemId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7031242a-2a23-49a8-9e60-747b9ba26882" ChangeDateTime="06/10/2014 11:48:55">
+    <Property Name="ElementName" Value="[dbo].[OEM].[OEM]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[OEM]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OEMCode" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9fb0ff3d-bd12-4209-8b68-dffd5707bbae" ChangeDateTime="06/10/2014 12:20:23">
+    <Property Name="ElementName" Value="[dbo].[Item].[Quantity]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Item]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsAvailable" />
+  </Operation>
 </Operations>

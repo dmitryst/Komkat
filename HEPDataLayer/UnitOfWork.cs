@@ -1,4 +1,5 @@
-﻿using HEPDataLayer.Repository;
+﻿using System.Data.Entity.Core.Objects;
+using HEPDataLayer.Repository;
 using HEPDataModel;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,28 @@ namespace HEPDataLayer
         public GenericRepository<DescriptionText> DescriptionRepository { get; set; }
         public GenericRepository<Currency> CurrencyRepository { get; set; }
         public ItemPriceRepository ItemPriceRepository { get; set; }
-        public UnitOfWork()
+        public GenericRepository<OEM> OemRepository { get; private set; }
+
+        public GenericRepository<Manufacturer> ManufacturerRepository { get; private set; }
+
+        public UnitOfWork() : this(false)
+        {
+            
+        }
+
+        public UnitOfWork(bool fastInsert)
         {
             _dbContext = new HEPedmDatabaseEntities();
 
+            if (fastInsert)
+            {
+                _dbContext.Configuration.AutoDetectChangesEnabled = false;
+                _dbContext.Configuration.LazyLoadingEnabled = false;
+                _dbContext.Configuration.ValidateOnSaveEnabled = false;
+                //_dbContext.Configuration.ProxyCreationEnabled = false;
+            }
+
+            
             Init();
         }
 
@@ -47,6 +66,8 @@ namespace HEPDataLayer
             DescriptionRepository = new GenericRepository<DescriptionText>(_dbContext);
             CurrencyRepository = new GenericRepository<Currency>(_dbContext);
             ItemPriceRepository = new ItemPriceRepository(_dbContext);
+            OemRepository = new GenericRepository<OEM>(_dbContext);
+            ManufacturerRepository = new GenericRepository<Manufacturer>(_dbContext);
         }
 
         public void BeginTransaction()
@@ -79,6 +100,10 @@ namespace HEPDataLayer
 
             try
             {
+                if (_dbContext.Configuration.AutoDetectChangesEnabled == false)
+                {
+                    ((IObjectContextAdapter)_dbContext).ObjectContext.DetectChanges();
+                }
                 ((IObjectContextAdapter)_dbContext).ObjectContext.SaveChanges();
                 _transaction.Commit();
                 ReleaseCurrentTransaction();
@@ -109,6 +134,11 @@ namespace HEPDataLayer
                 ReleaseCurrentTransaction();
             }
 
+        }
+
+        public void SaveChange()
+        {
+            _dbContext.SaveChanges();
         }
 
         /// <summary>

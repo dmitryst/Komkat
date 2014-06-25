@@ -72,6 +72,8 @@
     <Build Include="Procedures\GetItemListProcedure.sql" />
     <Build Include="Tables\MachineType.sql" />
     <Build Include="Procedures\GetModelListProcedure.sql" />
+    <Build Include="Tables\OEM.sql" />
+    <Build Include="Tables\Manufacturer.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HEPDatabase.publish.xml" />

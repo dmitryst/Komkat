@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEP", "HEP\HEP.csproj", "{47C44A15-6387-49CB-9FA1-6D418C365C5C}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEPDataLayer", "HEPDataLayer\HEPDataLayer.csproj", "{F72F5BF0-CE10-4F53-8D55-7CBD93219F56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEPInitData", "HEPInitData\HEPInitData.csproj", "{2DDF6D3B-34E1-46AB-8077-FB8F68555B21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportDBFromExcel", "ImportDBFromExcel\ImportDBFromExcel.csproj", "{1EE6C1FF-EF93-423F-A520-A8AA4DBAE01D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{2DDF6D3B-34E1-46AB-8077-FB8F68555B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DDF6D3B-34E1-46AB-8077-FB8F68555B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DDF6D3B-34E1-46AB-8077-FB8F68555B21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE6C1FF-EF93-423F-A520-A8AA4DBAE01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE6C1FF-EF93-423F-A520-A8AA4DBAE01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE6C1FF-EF93-423F-A520-A8AA4DBAE01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE6C1FF-EF93-423F-A520-A8AA4DBAE01D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -51,5 +51,10 @@ namespace HEPDataLayer.Repository
             else
                 _dbSet.Add(entity);
         }
+
+        public virtual IQueryable<T> GetQuery()
+        {
+            return _dbSet;
+        }
     }
 }

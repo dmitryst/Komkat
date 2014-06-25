@@ -19,6 +19,11 @@ namespace HEPDataLayer.Repository
             return _context.Models.AsEnumerable();
         }
 
+        public IEnumerable<Model> GetAllModelsWithInclude()
+        {
+            return _context.Models.Include("Brand").AsEnumerable();
+        }
+
         public IEnumerable<Model> GetModelListByBrand(int brandId)
         {
             return _context.Models.Where(x => x.BrandId == brandId).OrderBy(x => x.ModelName).AsEnumerable();

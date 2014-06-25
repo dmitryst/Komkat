@@ -14,7 +14,7 @@ namespace HEP.Controllers
     {
         private UnitOfWork unitOfWork;
         private int langInUse = 2;
-        private IEnumerable<GetItemResult_Result> itemsList;
+        private IEnumerable<GetItemListProcedure_Result> itemsList;
         private const int LangId = 1;
 
 
