@@ -85,7 +85,7 @@ namespace HEP.Controllers
             return PartialView("_ChooseModel");
         }
           
-        public ActionResult SearchByNumber(string search, int? page, int? modelId)
+        public ActionResult SearchByNumber(string search, int? modelId)
         {
             if (modelId != null)
                 return View("Products", itemsList.Where(x => x.ModelId == modelId).ToList());
@@ -93,7 +93,7 @@ namespace HEP.Controllers
                 if (search == null || search == string.Empty)
                     return View("Products", itemsList.ToList());
                 else
-                    return View("Products", itemsList.Where(x => x.CatalogNumber == search).ToList());
+                    return View("Products", itemsList.Where(x => x.CatalogNumber == search));
         }
 
         public ActionResult About()

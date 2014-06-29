@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="HEPDatabase.publish.xml" />
+    <None Include="ParkingHEPDatabase.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\ItemPriceReg.sql" />

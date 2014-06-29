@@ -5,8 +5,8 @@
         $("#ddlBrands").change(function () {
             brandDDLValue = $("#ddlBrands").val();  // val() - retrieve value
             var url = $(this).data('url');
-            var value = $(this).val();
-            $('#divModel').load(url, { id: value });
+            // var value = $(this).val();
+            $('#divModel').load(url); // { id: value }); 
             $.post('@Url.Action("LoadModels", "Home")', { fstValue: brandDDLValue },
                 function (result) {
                     var select = $("#ddlModels");

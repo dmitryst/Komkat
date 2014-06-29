@@ -2,42 +2,30 @@
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script type="text/javascript">
     $("document").ready(function () {
-        $("#ddlModels").change(function () {
-            //modelDLLValue = $("#ddlModels").val();
-            //var url = $(this).data('url');
-            //var value = $(this).val();
-            //$('#divParts').load(url, { modelId: value });
-            //$.post('@Url.Action("SearchByNumber", "Home")', { modelId: modelDLLValue });
-            $.ajax({
-                url: '@Url.Action("SearchByNumber", "Home")',
-                data: { modelId: $(this).val() },
-                cache: false,
-                type: "POST",
-                dataType: "html",
-                success: function (data, textStatus, XMLHttpRequest) {
-                    SetData(data);
-                }           
-        });
-        });
+        $('.btnShowParts').hide();
+    });
 
-        function SetData(data) {
-            $("#div1").html(data); // HTML DOM replace
-        }
+    var selectedModelId;
+
+    $("#ddlModels").change(function () {
+            $('.btnShowParts').show();
+            selectedModelId = $(this).val();
+            });
+        
+    $('.btnShowParts').click(function () {
+        window.location.href = "Home/SearchByNumber" + "?search=&modelId=" + selectedModelId;
     });
 </script>
 
 <div id="chooseModel">
-
     <div class="lead">Модель</div>
-
     @Html.DropDownList("models", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "ModelName"),
        "-- выберите Модель --",
         new
         {
             id = "ddlModels",
-            //data_url = Url.Action("ShowPartsForThisModel", "Product")
         })
-
-   
-
+    
+        <input type="button" value="Показать запчасти" class="btnShowParts" />
+    
 </div>

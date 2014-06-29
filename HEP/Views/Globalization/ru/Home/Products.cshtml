@@ -1,4 +1,4 @@
-@model IEnumerable<HEPDataModel.GetItemResult_Result>
+@model List<HEPDataModel.GetItemListProcedure_Result>
 
 
 <style type="text/css">
@@ -64,17 +64,14 @@
 }
 
 <h3>Product Catalogue</h3>
-<div id ="div1">
+<div id ="itemsContainer">
     <table id="products" class="products-table" border="1">
         <tr>
             <th><input type="checkbox" id="checkAll" /></th>
             <th>
                 Brand
             </th>
-            <th>
-                Type
-                @*@Html.DisplayNameFor(model => model.First().TypeName)*@
-            </th>
+           
             <th>
                 Model
             </th>
@@ -110,9 +107,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.BrandName)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TypeName)
-                    </td>
+                   
                     <td>
                         @Html.DisplayFor(modelItem => item.ModelName)
                     </td>
