@@ -14,7 +14,7 @@ namespace HEPDataLayer.Repository
         {
         }
 
-        public IEnumerable<GetItemListProcedure_Result> GetItemList(int langId)
+        public IEnumerable<GetItemListProcedure1_Result> GetItemList(int langId)
         {
             return _context.GetItemListProcedure(langId).AsEnumerable();
         }

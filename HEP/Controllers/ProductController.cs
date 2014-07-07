@@ -12,7 +12,7 @@ namespace HEP.Controllers
 {
     public class ProductController : BaseController
     {
-        private IEnumerable<GetItemListProcedure_Result> itemsList;
+        private IEnumerable<GetItemListProcedure1_Result> itemsList;
         //private IEnumerable<Model> modelList;
         private UnitOfWork unitOfWork;
         private const int LangId = 1;

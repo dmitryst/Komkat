@@ -1,0 +1,9 @@
+﻿@functions{
+    private bool IsChecked() {
+        if (ViewData.Model == null) return false;
+        return Convert.ToBoolean(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+    }
+}
+
+@Html.CheckBox("", IsChecked(), new { @class= "check-box"})
+

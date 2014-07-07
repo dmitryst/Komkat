@@ -78,6 +78,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EDM.edmx</DependentUpon>
     </Compile>
+    <Compile Include="GetItemListProcedure1_Result.cs">
+      <DependentUpon>EDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetItemListProcedure_Result.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>

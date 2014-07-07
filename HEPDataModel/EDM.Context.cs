@@ -73,18 +73,6 @@ public partial class HEPedmDatabaseEntities : DbContext
     }
 
 
-    public virtual ObjectResult<GetItemListProcedure_Result> GetItemListProcedure(Nullable<int> langId)
-    {
-
-        var langIdParameter = langId.HasValue ?
-            new ObjectParameter("LangId", langId) :
-            new ObjectParameter("LangId", typeof(int));
-
-
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetItemListProcedure_Result>("GetItemListProcedure", langIdParameter);
-    }
-
-
     public virtual ObjectResult<ModelListProcedureResult> GetModelListProcedure(Nullable<int> langId)
     {
 
@@ -94,6 +82,18 @@ public partial class HEPedmDatabaseEntities : DbContext
 
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ModelListProcedureResult>("GetModelListProcedure", langIdParameter);
+    }
+
+
+    public virtual ObjectResult<GetItemListProcedure1_Result> GetItemListProcedure(Nullable<int> langId)
+    {
+
+        var langIdParameter = langId.HasValue ?
+            new ObjectParameter("LangId", langId) :
+            new ObjectParameter("LangId", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetItemListProcedure1_Result>("GetItemListProcedure", langIdParameter);
     }
 
 }

@@ -22,7 +22,7 @@ public enum MachineTypeEnum : byte
 
     Bulldozer = 2,
 
-    PassengerVehicle = 3,
+    PassengerVehicle = 3
 
 }
 

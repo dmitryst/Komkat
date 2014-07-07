@@ -10,7 +10,7 @@ AS
 			(SELECT TOP (1) MachineType.Text FROM MachineType WHERE Model.MachineTypeId = MachineType.MachineTypes AND MachineType.LangId = @LangId) AS TypeName,
 			Item.ModelId, Model.ModelName, Item.CategoryId, Category.CategoryName, 
 			(SELECT TOP (1) OEM.OEMCode FROM OEM WHERE OEM.ItemId = Item.Id) AS OEMCode,
-			Item.CountryId, Country.CountryName, DescriptionText.Text
+			Item.CountryId, Country.CountryName, DescriptionText.Text, Manufacturer.ManufacturerName, Item.CostNative, Item.IsAvailable
 
 	FROM Item 
  LEFT OUTER JOIN	
@@ -21,6 +21,7 @@ AS
 
 			Category ON Item.CategoryId = Category.Id AND Category.LangId = @LangId LEFT OUTER JOIN
 			Country ON Item.CountryId = Country.Id AND Country.LangId = @LangId LEFT OUTER JOIN
-			DescriptionText ON Item.Id = DescriptionText.ItemId AND DescriptionText.LangId = @LangId
+			DescriptionText ON Item.Id = DescriptionText.ItemId AND DescriptionText.LangId = @LangId LEFT OUTER JOIN
+			Manufacturer ON Item.ManufacturerId = Manufacturer.Id
 		
 RETURN

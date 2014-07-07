@@ -1,0 +1,11 @@
+﻿@model HEP.Models.CartModel
+
+<div class="navbar-right">
+    @Html.ActionLink("Открыть", "Index", "Cart", new { returnUrl = Request.Url.PathAndQuery}, new { @class= "btn btn-detail navbar-btn"})
+</div>
+
+<div class="navbar-text">
+    <b>Cart:</b>
+    @Model.Lines.Sum(i => i.Quantity) товаров,
+    @Model.ComputeTotalValue().ToString("c")
+</div>

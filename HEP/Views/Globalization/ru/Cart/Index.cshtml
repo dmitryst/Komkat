@@ -1,0 +1,55 @@
+﻿@model HEP.ViewModels.CartIndexViewModel
+
+@{
+    ViewBag.Title = "Корзина запчастей";
+}
+
+<style>
+    #cartTable td {
+        vertical-align: middle;
+    }
+</style>
+
+<h2>Корзина</h2>
+<table id="cartTable" class="table">
+    <thead>
+        <tr>
+            <th>Наименование запчасти</th>
+            <th class="text-center">Количество</th>
+            <th class="text-right">Цена</th>
+            <th class="text-right">Всего</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Cart.Lines)
+        {
+            <tr>
+                <td>@line.Item.Text</td>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-right">@line.Item.CostNative.ToString("c")</td>
+                <td class="text-right">@((line.Quantity * line.Item.CostNative).ToString("c"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        <div class="pull-left">
+                            @Html.Hidden("id", line.Item.Id)
+                            @Html.Hidden("returnUrl", Model.ReturnUrl)
+                            <input class="btn btn-warning" type="submit" value="Удалить" />
+                        </div>
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">ИТОГО:</td>
+            <td class="text-right">@Model.Cart.ComputeTotalValue().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Вернуться на предыдущую страницу</a>
+</div>

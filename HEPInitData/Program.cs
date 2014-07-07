@@ -71,6 +71,7 @@ namespace HEPInitData
             item.Article = "208-30-00431";
             item.CountryId = 1;
             item.IsAvailable = true;
+            item.ManufacturerId = 1;
             
             unitOfWork.ItemRepository.Add(item);
 
@@ -94,6 +95,7 @@ namespace HEPInitData
             item2.Article = "AD441-1108R-LD-E";
             item2.CountryId = 1;
             item2.IsAvailable = true;
+            item2.ManufacturerId = 1;
 
             oem = new OEM() { OEMCode = "8A0505465", ItemId = 2 };
 
@@ -115,6 +117,7 @@ namespace HEPInitData
             item3.Article = "AU230009S-0L00";
             item3.CountryId = 1;
             item3.IsAvailable = true;
+            item3.ManufacturerId = 1;
 
             oem = new OEM() { OEMCode = "8A0505548", ItemId = 3 };
 
@@ -137,6 +140,7 @@ namespace HEPInitData
             item4.Article = "AU230009S-0L00";
             item4.CountryId = 1;
             item4.IsAvailable = true;
+            item4.ManufacturerId = 1;
 
             oem = new OEM() { OEMCode = "8A0505548", ItemId = 4 };
 
@@ -158,6 +162,8 @@ namespace HEPInitData
             item5.Article = "AD441-1955R-LD-UE";
             item5.CountryId = 1;
             item5.IsAvailable = true;
+            item5.ManufacturerId = 1;
+
             oem = new OEM() { OEMCode = "8A0807424A01C", ItemId = 5 };
 
             item5.OEMList.Add(oem);

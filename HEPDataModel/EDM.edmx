@@ -622,9 +622,6 @@
           <FunctionImport Name="GetItemResult" IsComposable="true" ReturnType="Collection(HEPDatabaseModel.GetItemResult_Result)">
           <Parameter Name="LangId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetItemListProcedure" ReturnType="Collection(HEPDatabaseModel.GetItemListProcedure_Result)">
-          <Parameter Name="LangId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="GetModelListProcedure" ReturnType="Collection(HEPDatabaseModel.ModelListProcedureResult)">
           <Parameter Name="LangId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -647,6 +644,9 @@
             <End Role="Manufacturer" EntitySet="Manufacturers" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
+          <FunctionImport Name="GetItemListProcedure" ReturnType="Collection(HEPDatabaseModel.GetItemListProcedure1_Result)">
+          <Parameter Name="LangId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetItemListProcedure_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -771,6 +771,24 @@
           <Property Type="String" Name="CountryName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Text" Nullable="false" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="GetItemListProcedure1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="BrandId" Nullable="true" />
+          <Property Type="String" Name="BrandName" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="MachineTypeId" Nullable="true" />
+          <Property Type="String" Name="TypeName" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="ModelId" Nullable="false" />
+          <Property Type="String" Name="ModelName" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="OEMCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="CountryId" Nullable="false" />
+          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Text" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ManufacturerName" Nullable="true" MaxLength="150" />
+          <Property Type="Decimal" Name="CostNative" Nullable="false" Precision="16" Scale="2" />
+          <Property Type="Boolean" Name="IsAvailable" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -884,26 +902,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetItemListProcedure" FunctionName="HEPDatabaseModel.Store.GetItemListProcedure">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="HEPDatabaseModel.GetItemListProcedure_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Id1" ColumnName="Id" />
-                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
-                <ScalarProperty Name="Id2" ColumnName="Id" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
-                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="CatalogNumber" ColumnName="OEMCode" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
-                <ScalarProperty Name="Text1" ColumnName="Text" />
-                
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetModelListProcedure" FunctionName="HEPDatabaseModel.Store.GetModelListProcedure">
           <ResultMapping>
               <ComplexTypeMapping TypeName="HEPDatabaseModel.ModelListProcedureResult">
@@ -941,6 +939,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetItemListProcedure" FunctionName="HEPDatabaseModel.Store.GetItemListProcedure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HEPDatabaseModel.GetItemListProcedure1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="OEMCode" ColumnName="OEMCode" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="CostNative" ColumnName="CostNative" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

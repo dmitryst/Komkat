@@ -14,24 +14,24 @@ namespace HEP.Controllers
     {
         private UnitOfWork unitOfWork;
         private int langInUse = 2;
-        private IEnumerable<GetItemListProcedure_Result> itemsList;
+        private IEnumerable<GetItemListProcedure1_Result> itemsList;
         private const int LangId = 1;
 
 
         public HomeController()
         {
             unitOfWork = new UnitOfWork();
-            itemsList = unitOfWork.ItemRepository.GetItemList(LangId);
+            itemsList = unitOfWork.ItemRepository.GetItemList(LangId).ToList();
         }
 
 
         public ActionResult Index()
         {
 
-            var types = unitOfWork.MachineTypeRepository.GetAllMachineTypeByLang(langInUse).OrderBy(m => m.Text);
+            var types = unitOfWork.MachineTypeRepository.GetAllMachineTypeByLang(langInUse).OrderBy(m => m.Text).ToList();
             ViewBag.Types = types;
 
-            var brands = unitOfWork.BrandRepository.GetAllBrands().OrderBy(p => p.BrandName);
+            var brands = unitOfWork.BrandRepository.GetAllBrands().OrderBy(p => p.BrandName).ToList();
             ViewBag.Brands = brands;
 
             return View();
@@ -93,7 +93,7 @@ namespace HEP.Controllers
                 if (search == null || search == string.Empty)
                     return View("Products", itemsList.ToList());
                 else
-                    return View("Products", itemsList.Where(x => x.CatalogNumber == search));
+                    return View("Products", itemsList.Where(x => x.OEMCode == search).ToList());
         }
 
         public ActionResult About()

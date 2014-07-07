@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HEP.Binders;
+using HEP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,6 +26,8 @@ namespace HEP
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new LocalizedRazor());
+
+            ModelBinders.Binders.Add(typeof(CartModel), new CartModelBinder());
         }
     }
 }

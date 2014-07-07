@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Komatsu, Caterpillar";
+    ViewBag.Title = "Запчасти";
 }
 
 
@@ -57,13 +57,13 @@
 <div class="hero-unit" >
     <div class="row-fluid">
         <div class="span6">
-            <p class="lead">Введите каталожный номер запчасти для поиска</p>
-
-            @using (Html.BeginForm("SearchByNumber", "Home", FormMethod.Get))
-            {
-                <p>@Html.TextBox("search")<input type="submit" value="Поиск" class="btn btn-primary btn-large" /> </p>
-            }
-
+            <p class="lead">Введите каталожный номер запчасти</p>
+            
+                @using (Html.BeginForm("SearchByNumber", "Home", FormMethod.Get))
+                {
+                    <div>@Html.TextBox("search")<input type="submit" value="Поиск" class="btn btn-primary" /></div>
+                }
+            
         </div>
 
         <div class="span6">
